@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datadogcurryware-deployment
+  labels:
+    app: datadogcurryware
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: datadogcurryware
+  template:
+    metadata:
+      labels:
+        app: datadogcurryware
+        env: macos
+    spec:
+      containers:
+        - name: datadogcurryware
+          image: scotcurry4/datadogcurryware:0.1.0
+          ports:
+            - containerPort: 8088
