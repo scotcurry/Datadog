@@ -1,9 +1,0 @@
-version: '3.8'
-services:
-  datadog:
-    image: datadog_container
-    container_name: datadog_container
-    ports:
-      - "8088:8088"
-    labels:
-      com.curryware.tags.build: '0.1'
