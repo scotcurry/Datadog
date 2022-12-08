@@ -4,6 +4,9 @@ metadata:
   name: datadogcurryware-deployment
   labels:
     app: datadogcurryware
+    tags.datadoghq.com/env: curryware-minikube
+    tags.datadoghq.com/service: curryware-frontend
+    tags.datadoghq.com/version: 0.2.0
 spec:
   replicas: 2
   selector:
@@ -13,10 +16,18 @@ spec:
     metadata:
       labels:
         app: datadogcurryware
-        env: macos
+        tags.datadoghq.com/env: curryware-minikube
+        tags.datadoghq.com/service: curryware-frontend
+        tags.datadoghq.com/version: 0.2.0
+        admission.datadoghq.com/enabled: "true"
+      annotations:
+        admission.datadoghq.com/python-lib.version: v1.6.3
     spec:
       containers:
         - name: datadogcurryware
-          image: scotcurry4/datadogcurryware:0.1.0
+          image: docker.io/scotcurry4/datadogcurryware:0.2.0
           ports:
             - containerPort: 8088
+          env:
+            - name: DD_LOGS_INJECTION
+              value: 'true'

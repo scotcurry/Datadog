@@ -6,6 +6,7 @@ fi
 if [[ $1 == '-a' ]]; then
   kubectl apply -f datadogcurryware-deployment.yaml
   kubectl apply -f datadogcurryware-service.yaml
+  minikube service datadogcurryware-service
 fi
 
 if [[ $1 == '-d' ]]; then

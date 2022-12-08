@@ -1,9 +1,42 @@
 version: '3.8'
 services:
-  datadog:
-    image: scotcurry4/datadogcurryware:0.1.0
+  datadogcurryware:
+    image: scotcurry4/datadogcurryware:0.2.0
     container_name: datadogcurryware
     ports:
       - "8088:8088"
     labels:
-      com.curryware.tags.build: '0.1.0'
+      com.curryware.tags.build: '0.2.0'
+      # Unified Tagging items
+      com.datadoghq.tags.env: 'datadogcurryware'
+      com.datadoghq.tags.service: 'datadogcurryware-container'
+      com.datadoghq.tags.version: '0.2.0'
+      # This line is what will add the source tag.  That tag is used to make sure the right log pipeline is used.
+      com.datadoghq.ad.logs: '[{"source": "python", "service": "datadogcurryware-logs"}]'
+    environment:
+      - DATADOG_SERVICE=curryware-frontend
+      - DD_ENV=datadogcurryware
+      - DD_VERSION=0.2.0
+      - DD_LOGS_INJECTION=true
+      - DD_TRACE_SAMPLE_RATE=1
+      - DD_AGENT_HOST=datadog-agent
+  agent:
+    image: "datadog/agent:latest"
+    container_name: datadog-agent
+    environment:
+      - DD_API_KEY=<DD_API_KEY>
+      - DD_APM_ENABLED=true
+      - DD_LOGS_ENABLED=true
+      - DD_APM_NON_LOCAL_TRAFFIC=true
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+      - DD_DOCKER_LABELS_AS_TAGS={"my.custom.label.team":"team"}
+      - DD_TAGS='env:datadogcurryware'
+      - DD_HOSTNAME=agent
+    ports:
+      - 127.0.0.1:8126:8126/tcp
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "datadog-agent", "service": "agent"}]'
