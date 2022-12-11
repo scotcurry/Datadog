@@ -11,13 +11,15 @@ cd ..
 echo 'Removing Containers'
 docker rm --force datadogcurryware
 echo "Removing Images"
-docker rmi --force scotcurry4/datadogcurryware:0.2.0
-docker rmi --force docker.io/scotcurry4/datadogcurryware:0.2.0
+docker rmi --force scotcurry4/datadogcurryware:0.2.1
+docker rmi --force docker.io/scotcurry4/datadogcurryware:0.2.1
+
+docker build --tag docker.io/scotcurry4/datadogcurryware:0.2.1 --file ./Containers/Dockerfile .
+docker build --tag scotcurry4/datadogcurryware:0.2.1 --file ./Containers/Dockerfile .
 
 if [[ $1 == -u ]]; then
-  docker image push docker.io/scotcurry4/datadogcurryware:0.2.0
+  docker image push docker.io/scotcurry4/datadogcurryware:0.2.1
 fi
 
-docker build --tag docker.io/scotcurry4/datadogcurryware:0.2.0 --file ./Containers/Dockerfile .
 cd Containers
 docker-compose up -d

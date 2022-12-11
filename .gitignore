@@ -95,3 +95,4 @@ fabric.properties
 /currywareff-b62d9033a976.json
 instance/
 /app_secrets.json
+*/.env

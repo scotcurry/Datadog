@@ -6,9 +6,9 @@ metadata:
     app: datadogcurryware
     tags.datadoghq.com/env: curryware-minikube
     tags.datadoghq.com/service: curryware-frontend
-    tags.datadoghq.com/version: 0.2.0
+    tags.datadoghq.com/version: 0.2.1
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: datadogcurryware
@@ -18,14 +18,15 @@ spec:
         app: datadogcurryware
         tags.datadoghq.com/env: curryware-minikube
         tags.datadoghq.com/service: curryware-frontend
-        tags.datadoghq.com/version: 0.2.0
+        tags.datadoghq.com/version: 0.2.1
         admission.datadoghq.com/enabled: "true"
       annotations:
         admission.datadoghq.com/python-lib.version: v1.6.3
+        ad.datadoghq.com/datadogcurryware.logs: '[{"source": "python", "service": "curryware-frontend"}]'
     spec:
       containers:
         - name: datadogcurryware
-          image: docker.io/scotcurry4/datadogcurryware:0.2.0
+          image: docker.io/scotcurry4/datadogcurryware:0.2.1
           ports:
             - containerPort: 8088
           env:

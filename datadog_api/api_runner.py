@@ -2,7 +2,6 @@ import os
 
 from datadog_api_client import ApiClient, Configuration
 from datadog_api_client.v1.api.metrics_api import MetricsApi
-from datadog_api_client.v1.api.authentication_api import AuthenticationApi
 
 
 dd_api_key = os.environ['DD_API_KEY']

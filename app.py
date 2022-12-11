@@ -1,9 +1,9 @@
 import datetime
 import logging
 
+# from ddtrace import patch; patch(logging=True)
 from flask import Flask, request, render_template
 from ddtrace import tracer
-from ddtrace import patch; patch(logging=True)
 
 app = Flask(__name__)
 application = app
@@ -17,12 +17,12 @@ logging.basicConfig(format=FORMAT)
 log = logging.getLogger(__name__)
 log.level = logging.INFO
 
-tracer.configure(
-    # This needs to match the container_name field in the docker-compose.yaml file for Docker
-    # TODO:  Need to add the information for k8s when I get it built.
-    hostname='datadog-agent',
-    port=8126
-)
+# tracer.configure(
+#     # This needs to match the container_name field in the docker-compose.yaml file for Docker
+#     # TODO:  Need to add the information for k8s when I get it built.
+#     hostname='ddmac',
+#     port=8126
+# )
 
 
 @tracer.wrap()
@@ -33,4 +33,20 @@ def index_page():
     user_agent = headers.environ['HTTP_USER_AGENT']
     current_time = datetime.datetime.now()
     log.info('Application starting with user-agent: %s', user_agent)
+
+    log.info('Another log Info')
+    try:
+        span = tracer.current_span()
+        if span:
+            span_name = span.name
+            log.info('Span Name: ' + span_name)
+        else:
+            log.error('No span found')
+    except:
+        log.error('Exception in tracer.current_span()')
+
+    if span is None:
+        log.error('--- No span object ---')
+
+    correlation_ids = (span.trace_id, span.span_id) if span else (None, None)
     return render_template('index.html', current_time=current_time)
