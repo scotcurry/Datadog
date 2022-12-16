@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: datadogcurryware
-          image: docker.io/scotcurry4/datadogcurryware:0.2.1
+          image: docker.io/scotcurry4/datadogcurryware:latest
           ports:
             - containerPort: 8088
           env:

@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   datadogcurryware:
-    image: scotcurry4/datadogcurryware:0.2.1
+    image: scotcurry4/datadogcurryware:latest
     container_name: datadogcurryware
     ports:
       - "8088:8088"
