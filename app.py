@@ -34,7 +34,7 @@ def index_page():
     # user_agent = headers.environ['HTTP_USER_AGENT']
     user_agent = headers.get('HTTP_USER_AGENT')
     current_time = datetime.datetime.now()
-    log.d("Debug Messages - Don't show up in Indexes")
+    log.debug("Debug Messages - Don't show up in Indexes")
     log.info('INFO message - Do show up in indexes')
 
     return render_template('index.html', current_time=current_time)
