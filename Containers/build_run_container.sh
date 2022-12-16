@@ -16,6 +16,7 @@ docker rmi --force docker.io/scotcurry4/datadogcurryware:0.2.2
 
 docker build --tag docker.io/scotcurry4/datadogcurryware:0.2.2 --file ./Containers/Dockerfile .
 docker build --tag scotcurry4/datadogcurryware:0.2.2 --file ./Containers/Dockerfile .
+docker build --tag scotcurry4/datadogcurryware:latest --file ./Containers/Dockerfile .
 
 if [[ $1 == -u ]]; then
   docker image push docker.io/scotcurry4/datadogcurryware:0.2.2

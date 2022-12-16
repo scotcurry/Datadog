@@ -20,6 +20,7 @@ services:
       - DD_LOGS_INJECTION=true
       - DD_TRACE_SAMPLE_RATE=1
       - DD_AGENT_HOST=datadog-agent
+      - RUN_LOCAL=false
   agent:
     image: "datadog/agent:latest"
     container_name: datadog-agent
