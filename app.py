@@ -1,6 +1,8 @@
+import json
 import os
 import datetime
 import logging
+import requests
 
 # from ddtrace import patch; patch(logging=True)
 from flask import Flask, request, render_template
@@ -44,3 +46,23 @@ def index_page():
     log.info('INFO message - Do show up in indexes')
 
     return render_template('index.html', current_time=current_time, user_agent=user_agent)
+
+
+@app.route('/chuckjoke', methods=['GET'])
+def print_chuck_joke():
+    response = requests.get('https://p4o643dcn3.execute-api.us-east-1.amazonaws.com/Prod/hello')
+    body = response.content
+    body = body.decode()
+    body = body.replace('\\n', '')
+    body = body.replace('\\"', '"')
+    body = body.replace('"{', '{')
+    body = body.replace('}"', '}')
+
+    joke_json = json.loads(body)
+    joke_text = joke_json['message']['joke_text']
+
+    print(joke_text)
+    print(body)
+
+    current_time = datetime.datetime.now()
+    return render_template('chuckjoke.html', current_time=current_time, joke_text=joke_text)

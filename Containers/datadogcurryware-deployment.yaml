@@ -32,3 +32,6 @@ spec:
           env:
             - name: DD_LOGS_INJECTION
               value: 'true'
+            # This environment variable is so log formatting is correct in the containerized scenarios.
+            - name: RUN_LOCAL
+              value: 'false'

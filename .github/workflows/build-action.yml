@@ -1,5 +1,8 @@
 name: Datadog Curryware Build
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - 'master'
 jobs:
   run-tests:
     runs-on: ubuntu-latest
