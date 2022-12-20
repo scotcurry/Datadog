@@ -11,8 +11,8 @@ cd ..
 echo 'Removing Containers'
 docker rm --force datadogcurryware
 echo "Removing Images"
-docker rmi --force scotcurry4/datadogcurryware:0.2.2
-docker rmi --force docker.io/scotcurry4/datadogcurryware:0.2.2
+docker rmi --force scotcurry4/datadogcurryware:latest
+docker rmi --force docker.io/scotcurry4/datadogcurryware:latest
 
 docker build --tag docker.io/scotcurry4/datadogcurryware:0.2.2 --file ./Containers/Dockerfile .
 docker build --tag scotcurry4/datadogcurryware:0.2.2 --file ./Containers/Dockerfile .
