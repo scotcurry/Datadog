@@ -4,9 +4,9 @@ metadata:
   name: datadogcurryware-deployment
   labels:
     app: datadogcurryware
-    tags.datadoghq.com/env: curryware-minikube
-    tags.datadoghq.com/service: curryware-frontend
-    tags.datadoghq.com/version: 0.2.1
+    tags.datadoghq.com/env: prod
+    tags.datadoghq.com/service: chuckjoke-frontend
+    tags.datadoghq.com/version: 0.2.8
 spec:
   replicas: 1
   selector:
@@ -16,13 +16,13 @@ spec:
     metadata:
       labels:
         app: datadogcurryware
-        tags.datadoghq.com/env: curryware-minikube
-        tags.datadoghq.com/service: curryware-frontend
-        tags.datadoghq.com/version: 0.2.1
+        tags.datadoghq.com/env: prod
+        tags.datadoghq.com/service: chuckjoke-frontend
+        tags.datadoghq.com/version: 0.2.8
         admission.datadoghq.com/enabled: "true"
       annotations:
         admission.datadoghq.com/python-lib.version: v1.6.3
-        ad.datadoghq.com/datadogcurryware.logs: '[{"source": "python", "service": "curryware-frontend"}]'
+        ad.datadoghq.com/datadogcurryware.logs: '[{"source": "python", "service": "chuckjoke-frontend"}]'
     spec:
       containers:
         - name: datadogcurryware

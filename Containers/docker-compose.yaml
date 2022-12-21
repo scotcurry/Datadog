@@ -6,17 +6,17 @@ services:
     ports:
       - "8088:8088"
     labels:
-      com.curryware.tags.build: '0.2.1'
+      com.curryware.tags.build: '0.2.8'
       # Unified Tagging items
-      com.datadoghq.tags.env: 'datadogcurryware'
-      com.datadoghq.tags.service: 'datadogcurryware-container'
-      com.datadoghq.tags.version: '0.2.1'
+      com.datadoghq.tags.env: 'staging'
+      com.datadoghq.tags.service: 'chuckjoke-frontend'
+      com.datadoghq.tags.version: '0.2.8'
       # This line is what will add the source tag.  That tag is used to make sure the right log pipeline is used.
       com.datadoghq.ad.logs: '[{"source": "python", "service": "datadogcurryware-logs"}]'
     environment:
-      - DATADOG_SERVICE=curryware-frontend
-      - DD_ENV=datadogcurryware
-      - DD_VERSION=0.2.1
+      - DATADOG_SERVICE=datadogcurryware
+      - DD_ENV=staging
+      - DD_VERSION=0.2.8
       - DD_LOGS_INJECTION=true
       - DD_TRACE_SAMPLE_RATE=1
       - DD_AGENT_HOST=datadog-agent

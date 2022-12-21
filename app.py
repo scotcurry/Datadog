@@ -64,5 +64,8 @@ def print_chuck_joke():
     print(joke_text)
     print(body)
 
+    chuck_image_location = './static/images/chuck_norris.png'
+
     current_time = datetime.datetime.now()
-    return render_template('chuckjoke.html', current_time=current_time, joke_text=joke_text)
+    return render_template('chuckjoke.html', current_time=current_time, joke_text=joke_text,
+                           chuck_image=chuck_image_location)
