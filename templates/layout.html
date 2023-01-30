@@ -16,32 +16,31 @@
     <link href="../static/dist/css/cover.css" rel="stylesheet">
   </head>
 
-  <body class="text-center">
+  <body>
 
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
-        <div class="inner">
-          <h3 class="masthead-brand">Curryware</h3>
-          <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link active" href="#">Home</a>
-          </nav>
-        </div>
-      </header>
-
+    <div class="wrapper full-height">
+      <header>Curryware Datadog Exercises</header>
+        <nav>
+          <ul>
+          <li><a class="nav-link active" href="/chuckjoke">Lambda Function</a></li>
+          <li><a class="nav-link active" href="/logging_functions">Logging Functions</a></li>
+          </ul>
+        </nav>
+        {% block content %}
+        {% endblock %}
+        <footer>
+          <div>
+            <p>&copy; 2023 Curryware, Inc.</p>
+          </div>
+        </footer>
+      <!--
       <main role="main" class="inner cover">
-        <h1 class="cover-heading">Last Page Update</h1>
-          {% block content %}
-          {% endblock %}
+
         <p class="lead">
           <a href="/chuckjoke" class="btn btn-lg btn-secondary">Chuck Jokes</a>
         </p>
       </main>
-
-      <footer class="mastfoot mt-auto">
-        <div class="inner">
-          <p>&copy; 2022 Curryware, Inc.</p>
-        </div>
-      </footer>
+      -->
     </div>
 
 

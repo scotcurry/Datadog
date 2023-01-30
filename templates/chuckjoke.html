@@ -1,7 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
+<article>
+  <div class="article-settings">
+    <h1 class="cover-heading">Chuck Norris Joke Page</h1>
+    <h2 class="cover-heading">Calls AWS Lambda Function To Get Joke</h2>
     <img src="{{ chuck_image }}" alt="Chuck Norris">
     <p>Current Time: {{ current_time }}</p>
     <p>Chuck Joke: {{ joke_text }}</p>
-<p class="lead">Hit refresh to get a new Chuck joke (and send a new trace to Datadog)</p>
+    <p class="lead">Hit refresh to get a new Chuck joke (and send a new trace to Datadog)</p>
+  </div>
+</article>
+
+<aside>
+  <p>Put notes in here</p>
+</aside>
 {% endblock %}

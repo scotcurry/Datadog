@@ -1,26 +1,68 @@
-if [[ $# == '-l' ]]; then
-    echo "Pulling latest Datadog Agent"
-    docker rm --force datadog_agent
-    docker rmi --force datadog/agent:latest
-    docker pull datadog/agent:latest
-fi
-
 cd ..
 
-# Clean everything to start fresh every time.
-echo 'Removing Containers'
-docker rm --force datadogcurryware
-echo "Removing Images"
-docker rmi --force scotcurry4/datadogcurryware:latest
-docker rmi --force docker.io/scotcurry4/datadogcurryware:latest
+LATEST=false
+CLEAR=false
+BUILD=false
+UPLOAD=false
 
-docker build --tag docker.io/scotcurry4/datadogcurryware:0.2.8 --file ./Containers/Dockerfile .
-docker build --tag scotcurry4/datadogcurryware:0.2.8 --file ./Containers/Dockerfile .
-docker build --tag scotcurry4/datadogcurryware:latest --file ./Containers/Dockerfile .
+for command_line in "$@"
+do
+  echo "$command_line"
+  if [ "$command_line" = "-u" ] || [ "$command_line" = "--upload" ]; then
+    echo 'Upload is true'
+    UPLOAD=true
+  fi
+  if [ "$command_line" = "-l" ] || [ "$command_line" = "--latest" ]; then
+    LATEST=true
+  fi
+  if [ "$command_line" = "-c" ] || [ "$command_line" = "--clear" ]; then
+    CLEAR=true
+  fi
+  if [ "$command_line" = "-b" ] || [ "$command_line" = "--build" ]; then
+    BUILD=true
+  fi
+done
 
-if [[ $1 == -u ]]; then
-  docker image push docker.io/scotcurry4/datadogcurryware:0.2.8
+if [[ $# -eq 0 || ( ( $UPLOAD = false ) && ( $LATEST = false ) && ( $CLEAR = false ) && ( $BUILD = false ) ) ]]; then
+  echo 'Parameters: [-c or --clear] [-l or --latest] [-b or --build] [u or --upload']
+  echo ''
+  echo '-c --clear - Removes all existing containers and images'
+  echo '-l --latest - Pulls the latest Datadog agent'
+  echo '-b --build - Builds new images'
+  echo '-u --upload - Uploads images'
 fi
 
-cd Containers
+echo $LATEST
+if [[ $LATEST = true ]]; then
+  echo "Pulling latest Datadog Agent"
+  docker rm --force datadog_agent
+  docker rmi --force datadog/agent:latest
+  docker pull datadog/agent:latest
+fi
+
+if [[ $CLEAR ]]; then
+  echo 'Removing Containers'
+  docker rm --force datadogcurryware
+  echo "Removing Images"
+  docker rmi --force scotcurry4/datadogcurryware:latest
+  docker rmi --force docker.io/scotcurry4/datadogcurryware:latest
+  docker rmi --force us-central1-docker.pkg.dev/currywareff/currywareffrepository/datadogcurryware:latest
+fi
+
+if [[ $BUILD ]]; then
+  docker build --tag docker.io/scotcurry4/datadogcurryware:0.2.8 --file ./Containers/Dockerfile .
+  docker build --tag scotcurry4/datadogcurryware:0.2.8 --file ./Containers/Dockerfile .
+  docker build --tag scotcurry4/datadogcurryware:latest --file ./Containers/Dockerfile .
+  docker build --platform linux/amd64 --tag us-central1-docker.pkg.dev/currywareff/currywareffrepository/datadogcurryware:latest --file ./Containers/Dockerfile .
+fi
+
+if [[ $UPLOAD ]]; then
+  echo 'Uploading Image'
+  docker image push docker.io/scotcurry4/datadogcurryware:latest
+  gcloud auth configure-docker us-central1-docker.pkg.dev
+  cat /Users/scot.curry/PycharmProjects/CurrywareFF/currywareff-d971a11d21cd.json | docker login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
+  sudo docker push us-central1-docker.pkg.dev/currywareff/currywareffrepository/datadogcurryware:latest
+fi
+
+cd Containers || exit
 docker-compose up -d

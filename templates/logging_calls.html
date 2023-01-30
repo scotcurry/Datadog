@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<article>
+  <form method="post" action="/logging_functions">
+    <div class="article-settings">
+      <h1 class="cover-heading">Logging Example Page</h1>
+      <p>Current Time: {{ current_time }}</p>
+      {% if post_method == "GET" %}
+      <input type="submit" value="Multi-line Logging" name="multi_line_log">
+      <input type="submit" value="JSON Logging" name="json_logging">
+      {% elif post_method == "MULTI_LINE" %}
+        <p>Created Multi-line log entry</p>
+      {% elif post_method == "JSON" %}
+        <p>JSON log entry created</p>
+      {% endif %}
+      <p class="lead">Hit refresh to create a new multi-line log entry</p>
+    </div>
+  </form>
+</article>
+
+<aside>
+  <p>Put notes in here</p>
+</aside>
+{% endblock %}

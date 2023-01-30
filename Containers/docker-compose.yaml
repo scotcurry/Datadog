@@ -11,6 +11,7 @@ services:
       com.datadoghq.tags.env: 'staging'
       com.datadoghq.tags.service: 'chuckjoke-frontend'
       com.datadoghq.tags.version: '0.2.8'
+      com.datadoghq.tags.labeltag: 'added-label-tag'
       # This line is what will add the source tag.  That tag is used to make sure the right log pipeline is used.
       com.datadoghq.ad.logs: '[{"source": "python", "service": "datadogcurryware-logs"}]'
     environment:

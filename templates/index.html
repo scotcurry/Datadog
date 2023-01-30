@@ -1,6 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
+<article>
+  <div class="article-settings">
     <p>Current Time: {{ current_time }}</p>
     <p>User Agent: {{ user_agent }}</p>
     <p class="lead">Hit refresh to update the time (and send a new trace to Datadog)</p>
+  </div>
+</article>
+
+<aside>
+  <p>Put notes in here</p>
+</aside>
 {% endblock %}
