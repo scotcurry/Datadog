@@ -1,0 +1,14 @@
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  name: "datadogcurryware-config"
+  namespace: "default"
+  labels:
+    app: "datadogcurryware"
+    tags.datadoghq.com/env: "prod"
+    tags.datadoghq.com/service: "chuckjoke-frontend"
+    tags.datadoghq.com/version: "0.2.8"
+    admission.datadoghq.com/enabled: "true"
+data:
+  DD_LOGS_INJECTION: "true"
+  RUN_LOCAL: "false"

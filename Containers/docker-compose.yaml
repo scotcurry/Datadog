@@ -5,6 +5,7 @@ services:
     container_name: datadogcurryware
     ports:
       - "8088:8088"
+    #  There is a way to ingest labels and make the tags.  Need to look into this.
     labels:
       com.curryware.tags.build: '0.2.8'
       # Unified Tagging items
@@ -13,11 +14,12 @@ services:
       com.datadoghq.tags.version: '0.2.8'
       com.datadoghq.tags.labeltag: 'added-label-tag'
       # This line is what will add the source tag.  That tag is used to make sure the right log pipeline is used.
-      com.datadoghq.ad.logs: '[{"source": "python", "service": "datadogcurryware-logs"}]'
+      # Need to research this to figure out which takes precedent (env or labels).
+      com.datadoghq.ad.logs: '[{"source": "python", "service": "chuckjoke-frontend"}]'
     environment:
-      - DATADOG_SERVICE=datadogcurryware
-      - DD_ENV=staging
+      - DD_ENV=prod
       - DD_VERSION=0.2.8
+      - DD_SERVICE=chuckjoke-frontend
       - DD_LOGS_INJECTION=true
       - DD_TRACE_SAMPLE_RATE=1
       - DD_AGENT_HOST=datadog-agent
@@ -32,8 +34,7 @@ services:
       - DD_APM_NON_LOCAL_TRAFFIC=true
       - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
       - DD_DOCKER_LABELS_AS_TAGS={"my.custom.label.team":"team"}
-      - DD_TAGS='env:datadogcurryware'
-      - DD_HOSTNAME=agent
+      - DD_HOSTNAME=docker-agent
     ports:
       - 127.0.0.1:8126:8126/tcp
     volumes:

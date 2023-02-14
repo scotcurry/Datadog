@@ -1,7 +1,8 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "datadogcurryware-deployment"
+  name: "datadogcurryware"
+  namespace: "default"
   labels:
     app: "datadogcurryware"
     tags.datadoghq.com/env: "prod"
@@ -16,6 +17,7 @@ spec:
       tags.datadoghq.com/env: "prod"
       tags.datadoghq.com/service: "chuckjoke-frontend"
       tags.datadoghq.com/version: "0.2.8"
+      admission.datadoghq.com/enabled: "true"
   template:
     metadata:
       labels:
@@ -26,13 +28,16 @@ spec:
         admission.datadoghq.com/enabled: "true"
     spec:
       containers:
-        - name: "datadogcurryware-sha256-1"
-          image: "us-central1-docker.pkg.dev/currywareff/currywareffrepository/datadogcurryware@sha256:243b302d5f623c1a2c424f7c80ce4b890047d2902bcdfb0e7fc7e6f6fc2a489a"
-          ports:
-            - containerPort: 8088
-          env:
-            - name: DD_LOGS_INJECTION
-              value: 'true'
-            # This environment variable is so log formatting is correct in the containerized scenarios.
-            - name: RUN_LOCAL
-              value: 'false'
+      - name: "datadogcurryware-sha256-1"
+        image: "us-central1-docker.pkg.dev/currywareff/currywareffrepository/datadogcurryware@sha256:243b302d5f623c1a2c424f7c80ce4b890047d2902bcdfb0e7fc7e6f6fc2a489a"
+        env:
+        - name: "DD_LOGS_INJECTION"
+          valueFrom:
+            configMapKeyRef:
+              key: "DD_LOGS_INJECTION"
+              name: "datadogcurryware-config"
+        - name: "RUN_LOCAL"
+          valueFrom:
+            configMapKeyRef:
+              key: "RUN_LOCAL"
+              name: "datadogcurryware-config"

@@ -1,0 +1,24 @@
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "datadogcurryware-service"
+  namespace: "default"
+  labels:
+    admission.datadoghq.com/enabled: "true"
+    app: "datadogcurryware"
+    tags.datadoghq.com/env: "prod"
+    tags.datadoghq.com/service: "chuckjoke-frontend"
+    tags.datadoghq.com/version: "0.2.8"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 8088
+  selector:
+    admission.datadoghq.com/enabled: "true"
+    app: "datadogcurryware"
+    tags.datadoghq.com/env: "prod"
+    tags.datadoghq.com/service: "chuckjoke-frontend"
+    tags.datadoghq.com/version: "0.2.8"
+  type: "LoadBalancer"
+  loadBalancerIP: ""

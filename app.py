@@ -34,7 +34,7 @@ else:
 
 logging.basicConfig(format=FORMAT)
 log = logging.getLogger(__name__)
-log.level = logging.DEBUG
+log.level = logging.INFO
 
 if running_local is None:
     log.debug('Running Local: FALSE')
@@ -110,9 +110,8 @@ def logging_functions_menu():
             write_json_log_entry('JSON Log Entry')
             return render_template('logging_calls.html', current_time=current_time, post_method="JSON")
         elif request.form.get('multi_line_log'):
-            print('Handle multi line log')
+            write_multi_line_log_entry()
             return render_template('logging_calls.html', current_time=current_time, post_method="MULTI_LINE")
-        return 'Post'
     elif request.method == 'GET':
         post_method = 'GET'
         return render_template('logging_calls.html', current_time=current_time, post_method=post_method)
@@ -131,5 +130,5 @@ def multi_line_log_api():
             if (count % 5) == 0:
                 log_text = log_text + '\n'
 
-    write_multi_line_log_entry(log_text)
+    write_multi_line_log_entry()
     return render_template('logging_calls.html')

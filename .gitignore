@@ -91,7 +91,9 @@ fabric.properties
 /github_token.txt
 /env
 /venv
+/logs
 instance/
 /app_secrets.json
 */.env
 /currywareff-d971a11d21cd.json
+/Containers/upload_secrets.sh

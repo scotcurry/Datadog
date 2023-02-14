@@ -30,6 +30,7 @@ if [[ $# -eq 0 || ( ( $UPLOAD = false ) && ( $LATEST = false ) && ( $CLEAR = fal
   echo '-l --latest - Pulls the latest Datadog agent'
   echo '-b --build - Builds new images'
   echo '-u --upload - Uploads images'
+  exit 0
 fi
 
 echo $LATEST
