@@ -21,6 +21,8 @@ headers = {'Content-Type': 'application/json', 'DD_API_KEY': rest_api_key, 'DD_A
 
 def validate_api_keys():
 
+    print('REST API Key: ' + rest_api_key)
+    print('REST Application Key: ' + rest_application_key)
     return_value = False
     endpoint = '/v1/validate'
     uri = base_api_url + endpoint
