@@ -24,10 +24,12 @@ spec:
         tags.datadoghq.com/service: "chuckjoke-frontend"
         tags.datadoghq.com/version: "0.2.8"
         admission.datadoghq.com/enabled: "true"
+      annotations:
+        admission.datadoghq.com/python-lib.version: "v1.12.0"
     spec:
       containers:
-        - name: "datadogcurryware-sha256-1"
-          image: "us-central1-docker.pkg.dev/currywareff/currywareffrepository/datadogcurryware@sha256:243b302d5f623c1a2c424f7c80ce4b890047d2902bcdfb0e7fc7e6f6fc2a489a"
+        - name: "datadogcurryware"
+          image: "scotcurry4/datadogcurryware:latest"
           ports:
             - containerPort: 8088
           env:
