@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+<article>
+  <div class="article-settings">
+    <h1 class="cover-heading">State Tax Query</h1>
+    <h2 class="cover-heading">Calls SQL Stored Procedure</h2>
+    <img src="{{ sql_image }}" alt="Chuck Norris">
+    <table style="width:100%">
+      <tbody>
+      <tr>
+        <th>Name</th>
+        <th>Tax Rate</th>
+        <th>State Name</th>
+      </tr>
+      {% for current_state in state_tax_rates %}
+      <tr>
+        <td>{{ current_state['Name'] }}</td>
+        <td>{{ current_state['TaxRate'] }}</td>
+        <td>{{ current_state['StateName'] }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</article>
+
+<aside>
+  <p>Put notes in here</p>
+</aside>
+{% endblock %}

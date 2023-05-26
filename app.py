@@ -132,3 +132,15 @@ def multi_line_log_api():
 
     write_multi_line_log_entry()
     return render_template('logging_calls.html')
+
+
+@app.route('/database_functions', methods=['GET'])
+def database_functions():
+    response = requests.get('https://win2019server.curryware.org/api/database')
+    body = response.content
+    json_body = json.loads(body)
+    sql_server_image_location = './static/images/sql_server.png'
+    for current_state in json_body:
+        scot = current_state['Name']
+
+    return render_template('state_tax.html', sql_image=sql_server_image_location, state_tax_rates=json_body)

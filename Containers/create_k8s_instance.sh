@@ -15,3 +15,5 @@ if [[ $1 == '-d' ]]; then
   kubectl delete -f datadogcurryware-service.yaml
   docker rmi scotcurry4/datadogcurryware:latest
 fi
+
+#  helm install datadog -f values.yaml datadog/datadog

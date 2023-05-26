@@ -14,6 +14,19 @@
 
     <!-- Custom styles for this template -->
     <link href="../static/dist/css/cover.css" rel="stylesheet">
+  <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        /* setting the text-align property to center*/
+        td {
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
   </head>
 
   <body>
@@ -24,6 +37,7 @@
           <ul>
           <li><a class="nav-link active" href="/chuckjoke">Lambda Function</a></li>
           <li><a class="nav-link active" href="/logging_functions">Logging Functions</a></li>
+          <li><a class="nav-link active" href="/database_functions">Database Functions</a></li>
           </ul>
         </nav>
         {% block content %}
