@@ -140,7 +140,6 @@ def database_functions():
     body = response.content
     json_body = json.loads(body)
     sql_server_image_location = './static/images/sql_server.png'
-    for current_state in json_body:
-        scot = current_state['Name']
+    state_tax_rates = json_body['stateSalesTaxList']
 
-    return render_template('state_tax.html', sql_image=sql_server_image_location, state_tax_rates=json_body)
+    return render_template('state_tax.html', sql_image=sql_server_image_location, state_tax_rates=state_tax_rates)

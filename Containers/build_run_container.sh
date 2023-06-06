@@ -51,8 +51,8 @@ if [[ $CLEAR ]]; then
 fi
 
 if [[ $BUILD ]]; then
-  docker build --tag docker.io/scotcurry4/datadogcurryware:0.2.8 --file ./Containers/Dockerfile .
-  docker build --tag scotcurry4/datadogcurryware:0.2.8 --file ./Containers/Dockerfile .
+  docker build --tag docker.io/scotcurry4/datadogcurryware:0.2.9 --file ./Containers/Dockerfile .
+  docker build --tag scotcurry4/datadogcurryware:0.2.9 --file ./Containers/Dockerfile .
   docker build --tag scotcurry4/datadogcurryware:latest --file ./Containers/Dockerfile .
   docker build --platform linux/amd64 --tag us-central1-docker.pkg.dev/currywareff/currywareffrepository/datadogcurryware:latest --file ./Containers/Dockerfile .
 fi

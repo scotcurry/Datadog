@@ -1,6 +1,6 @@
 Flask==2.3.2
-datadog_api_client==2.12.0
-ddtrace==1.13.3
+datadog_api_client==2.13.2
+ddtrace==1.14.0
 gunicorn==20.1.0
 pip==23.1.2
 pytest==7.3.1

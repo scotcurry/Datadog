@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 FROM python:3.9-slim-buster
 
 # Uncomment these when building a local container, but comment them when building a container for deployment.
