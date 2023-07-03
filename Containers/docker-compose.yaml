@@ -7,18 +7,20 @@ services:
       - "8088:8088"
     #  There is a way to ingest labels and make the tags.  Need to look into this.
     labels:
-      com.curryware.tags.build: '3.7.1184'
+      com.datadoghq.tags.build: '3.703.822'
       # Unified Tagging items
       com.datadoghq.tags.env: 'staging'
       com.datadoghq.tags.service: 'chuckjoke-frontend'
-      com.curryware.tags.version: '3.7.1135'
+      com.curryware.tags.version: '3.703.828'
       com.datadoghq.tags.labeltag: 'added-label-tag'
       # This line is what will add the source tag.  That tag is used to make sure the right log pipeline is used.
       # Need to research this to figure out which takes precedent (env or labels).
       com.datadoghq.ad.logs: '[{"source": "python", "service": "chuckjoke-frontend"}]'
+      org.opencontainers.image.revision: '28ad1fa183eb40016391a4061b0c162a04e5c42a'
+      org.opencontainers.image.source: 'https://github.com/scotcurry/Datadog'
     environment:
       - DD_ENV=prod
-      - DD_VERSION=3.7.1184
+      - DD_VERSION=3.703.939.865.828.822
       - DD_SERVICE=chuckjoke-frontend
       - DD_LOGS_INJECTION=true
       - DD_TRACE_SAMPLE_RATE=1

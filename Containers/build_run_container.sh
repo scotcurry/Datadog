@@ -21,6 +21,9 @@ do
   if [ "$command_line" = "-b" ] || [ "$command_line" = "--build" ]; then
     BUILD=true
   fi
+  if [ "$command_line" = "-r" ] || [ "$command_line" = "--run" ]; then
+    RUN=true
+  fi
 done
 
 if [[ $# -eq 0 || ( ( $UPLOAD = false ) && ( $LATEST = false ) && ( $CLEAR = false ) && ( $BUILD = false ) ) ]]; then
@@ -30,10 +33,12 @@ if [[ $# -eq 0 || ( ( $UPLOAD = false ) && ( $LATEST = false ) && ( $CLEAR = fal
   echo '-l --latest - Pulls the latest Datadog agent'
   echo '-b --build - Builds new images'
   echo '-u --upload - Uploads images'
+  echo '-r --run Runs the container'
   exit 0
 fi
 
 echo $LATEST
+read -p "Stop here" -t 20
 if [[ $LATEST = true ]]; then
   echo "Pulling latest Datadog Agent"
   docker rm --force datadog_agent
@@ -41,7 +46,8 @@ if [[ $LATEST = true ]]; then
   docker pull datadog/agent:latest
 fi
 
-if [[ $CLEAR ]]; then
+echo $CLEAR
+if [[ $CLEAR = true ]]; then
   echo 'Removing Containers'
   docker rm --force datadogcurryware
   echo "Removing Images"
@@ -50,14 +56,23 @@ if [[ $CLEAR ]]; then
   docker rmi --force us-central1-docker.pkg.dev/currywareff/currywareffrepository/datadogcurryware:latest
 fi
 
-if [[ $BUILD ]]; then
-  docker build --tag docker.io/scotcurry4/datadogcurryware:3.7.1184 --file ./Containers/Dockerfile .
-  docker build --tag scotcurry4/datadogcurryware:3.7.1184 --file ./Containers/Dockerfile .
-  docker build --tag scotcurry4/datadogcurryware:latest --file ./Containers/Dockerfile .
-  docker build --platform linux/amd64 --tag us-central1-docker.pkg.dev/currywareff/currywareffrepository/datadogcurryware:latest --file ./Containers/Dockerfile .
+echo $BUILD
+if [[ $BUILD = true ]]; then
+  docker build --tag docker.io/scotcurry4/datadogcurryware:3.703.939.865.828.822 --file ./Containers/Dockerfile . \
+    --label org.opencontainers.image.revision=28ad1fa183eb40016391a4061b0c162a04e5c42a \
+    --label org.opencontainers.image.source=https://github.com/scotcurry/Datadog
+  docker build --tag scotcurry4/datadogcurryware:3.703.939.865.828.822 --file ./Containers/Dockerfile . \
+    --label org.opencontainers.image.revision=28ad1fa183eb40016391a4061b0c162a04e5c42a
+    --label org.opencontainers.image.source=https://github.com/scotcurry/Datadog
+  docker build --tag scotcurry4/datadogcurryware:latest --file ./Containers/Dockerfile . \
+    --label org.opencontainers.image.revision=28ad1fa183eb40016391a4061b0c162a04e5c42a
+    --label org.opencontainers.image.source=https://github.com/scotcurry/Datadog
+  docker build --platform linux/amd64 --tag us-central1-docker.pkg.dev/currywareff/currywareffrepository/datadogcurryware:latest --file ./Containers/Dockerfile . \
+    --label org.opencontainers.image.revision=28ad1fa183eb40016391a4061b0c162a04e5c42a
+    --label org.opencontainers.image.source=https://github.com/scotcurry/Datadog
 fi
 
-if [[ $UPLOAD ]]; then
+if [[ $UPLOAD = true ]]; then
   echo 'Uploading Image'
   docker image push docker.io/scotcurry4/datadogcurryware:latest
   gcloud auth configure-docker us-central1-docker.pkg.dev
@@ -65,5 +80,8 @@ if [[ $UPLOAD ]]; then
   sudo docker push us-central1-docker.pkg.dev/currywareff/currywareffrepository/datadogcurryware:latest
 fi
 
-cd Containers || exit
-docker-compose up -d
+if [[ $RUN = true ]]; then
+  echo "Starting Container"
+  cd Containers || exit
+  docker-compose up -d
+fi

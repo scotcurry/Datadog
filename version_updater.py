@@ -1,7 +1,7 @@
 import os
 import re
-import json
 import datetime
+import subprocess
 
 
 #  The current version uses the last digit of the year as the major version, day as the minor version, and minutes
@@ -11,15 +11,20 @@ def get_current_version_string():
     current_time = datetime.datetime.now()
     year = str(current_time.year)[3]
     month = str(current_time.month)
+    day = str(current_time.day)
+    if len(day) == 1:
+        day = '0' + day
     midnight_time = datetime.datetime(current_time.year, current_time.month, current_time.day)
     time_delta = current_time - midnight_time
     minutes = str(int(time_delta.seconds / 60))
-    version = year + '.' + month + '.' + minutes
+    version = year + '.' + month + day + '.' + minutes
     last_updated = month + '/' + str(current_time.day) + '/' + str(current_time.year) + ':' + minutes
     return version, last_updated
 
 
 def update_build_run_container(current_version):
+
+    last_git_commit_hash = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode('utf-8')
 
     current_directory = os.getcwd()
     run_container_file = current_directory + '/Containers/build_run_container.sh'
@@ -30,6 +35,10 @@ def update_build_run_container(current_version):
     regex_string = 'datadogcurryware:\d{1}.\d{1,2}.\d{1,4}'
     replacement_string = 'datadogcurryware:' + current_version
     new_text = re.sub(regex_string, replacement_string, file_content)
+
+    regex_string = 'org\.opencontainers\.image\.revision=[a-f0-9]{40}'
+    replacement_string = 'org.opencontainers.image.revision=' + last_git_commit_hash
+    new_text = re.sub(regex_string, replacement_string, new_text)
 
     with open(run_container_file, 'w+') as replacement_file:
         replacement_file.write(new_text)
@@ -93,7 +102,6 @@ def update_build_action_file(current_version):
     new_text = re.sub(regex_string, replacement_string, file_content)
 
     with open(workflow_file, 'w+') as replacement_file:
-        print(new_text)
         replacement_file.write(new_text)
 
 def main():
