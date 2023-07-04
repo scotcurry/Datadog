@@ -58,18 +58,18 @@ fi
 
 echo $BUILD
 if [[ $BUILD = true ]]; then
-  docker build --tag docker.io/scotcurry4/datadogcurryware:3.703.939.865.828.822 --file ./Containers/Dockerfile . \
-    --label org.opencontainers.image.revision=28ad1fa183eb40016391a4061b0c162a04e5c42a \
-    --label org.opencontainers.image.source=https://github.com/scotcurry/Datadog
-  docker build --tag scotcurry4/datadogcurryware:3.703.939.865.828.822 --file ./Containers/Dockerfile . \
-    --label org.opencontainers.image.revision=28ad1fa183eb40016391a4061b0c162a04e5c42a
-    --label org.opencontainers.image.source=https://github.com/scotcurry/Datadog
+  docker build --tag docker.io/scotcurry4/datadogcurryware:3.704.1123 --file ./Containers/Dockerfile . \
+    --label org.opencontainers.image.revision=99f154041cd79e214a5eb3d88700cdb38d14952e \
+    --label org.opencontainers.image.source=github.com/scotcurry/Datadog
+  docker build --tag scotcurry4/datadogcurryware:3.704.1123 --file ./Containers/Dockerfile . \
+    --label org.opencontainers.image.revision=99f154041cd79e214a5eb3d88700cdb38d14952e \
+    --label org.opencontainers.image.source=github.com/scotcurry/Datadog
   docker build --tag scotcurry4/datadogcurryware:latest --file ./Containers/Dockerfile . \
-    --label org.opencontainers.image.revision=28ad1fa183eb40016391a4061b0c162a04e5c42a
-    --label org.opencontainers.image.source=https://github.com/scotcurry/Datadog
+    --label org.opencontainers.image.revision=99f154041cd79e214a5eb3d88700cdb38d14952e \
+    --label org.opencontainers.image.source=github.com/scotcurry/Datadog
   docker build --platform linux/amd64 --tag us-central1-docker.pkg.dev/currywareff/currywareffrepository/datadogcurryware:latest --file ./Containers/Dockerfile . \
-    --label org.opencontainers.image.revision=28ad1fa183eb40016391a4061b0c162a04e5c42a
-    --label org.opencontainers.image.source=https://github.com/scotcurry/Datadog
+    --label org.opencontainers.image.revision=99f154041cd79e214a5eb3d88700cdb38d14952e \
+    --label org.opencontainers.image.source=github.com/scotcurry/Datadog
 fi
 
 if [[ $UPLOAD = true ]]; then
