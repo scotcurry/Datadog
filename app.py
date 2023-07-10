@@ -143,3 +143,28 @@ def database_functions():
     state_tax_rates = json_body['stateSalesTaxList']
 
     return render_template('state_tax.html', sql_image=sql_server_image_location, state_tax_rates=state_tax_rates)
+
+
+@app.route('/random_error', methods=['GET'])
+def random_error():
+    random_value = random.randint(0, 99)
+    if random_value < 5:
+        divisor = 0
+        log_text = 'Page is going to throw and error, return value was ' + str(random_value)
+        log.error(log_text)
+        return_value = 100 / divisor
+    else:
+        log_text = 'Lucky! no error, return value was ' + str(random_value)
+        return_value = random_value
+
+    return render_template('random_error.html', returned_value=return_value)
+
+
+@app.route('/forced_error', methods=['GET'])
+def forced_error():
+    divisor = 0
+    log_text = "This page forced an error"
+    log.error(log_text)
+    return_value = 100 / divisor
+
+    return render_template('random_error.html', return_value=return_value)

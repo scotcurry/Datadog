@@ -5,7 +5,7 @@
     <meta name="author" content="Scot curry">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Datadog App by Curryware</title>
+    <title>{% block title %}{% endblock %}</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/cover/">
 
@@ -38,6 +38,8 @@
           <li><a class="nav-link active" href="/chuckjoke">Lambda Function</a></li>
           <li><a class="nav-link active" href="/logging_functions">Logging Functions</a></li>
           <li><a class="nav-link active" href="/database_functions">Database Functions</a></li>
+          <li><a class="nav-link active" href="/random_error">Random Error Page</a></li>
+          <li><a class="nav_line active" href="/forced_error">Forced Error Page</a></li>
           </ul>
         </nav>
         {% block content %}

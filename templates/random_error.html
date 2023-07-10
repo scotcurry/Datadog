@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}{{ super() }}Random Error Page{% endblock %}
+{% block content %}
+<div class="article-settings">
+    <h1 class="cover-heading">Random Error Page</h1>
+    <h2 class="cover-heading">5 Percent Chance of an Error</h2>
+    <p>Lucked out the return value was: {{ returned_value }}</p>
+</div>
+
+<aside>
+  <p>5 percent of the time the page will fail</p>
+</aside>
+{% endblock %}
