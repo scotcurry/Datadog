@@ -38,9 +38,9 @@ def update_build_run_container(current_version):
     replacement_string = 'datadogcurryware:' + current_version + ' --'
     new_text = re.sub(regex_string, replacement_string, file_content)
 
-    regex_string = 'org\.opencontainers\.image\.revision=[a-f0-9]{40}'
-    replacement_string = 'org.opencontainers.image.revision=' + last_git_commit_hash
-    new_text = re.sub(regex_string, replacement_string, new_text)
+    # regex_string = 'org\.opencontainers\.image\.revision=[a-f0-9]{40}'
+    # replacement_string = 'org.opencontainers.image.revision=' + last_git_commit_hash
+    # new_text = re.sub(regex_string, replacement_string, new_text)
 
     with open(run_container_file, 'w+') as replacement_file:
         replacement_file.write(new_text)
