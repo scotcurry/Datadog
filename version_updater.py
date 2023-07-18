@@ -54,8 +54,8 @@ def update_docker_compose_file(current_version):
     with open(docker_compose_file, 'r') as file:
         file_content = file.read()
 
-    regex_string = 'DD_VERSION=\d{1}.\d{1,3}.\d{1,4}\r'
-    replacement_string = 'DD_VERSION=' + current_version + '\r'
+    regex_string = 'DD_VERSION=\d{1}.\d{1,3}.\d{1,4}'
+    replacement_string = 'DD_VERSION=' + current_version
     new_text = re.sub(regex_string, replacement_string, file_content)
 
     regex_string = 'com.datadoghq.tags.build:\s\'\d{1}\.\d{1,3}\.\d{1,4}\''
