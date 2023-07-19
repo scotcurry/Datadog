@@ -58,10 +58,10 @@ fi
 
 echo $BUILD
 if [[ $BUILD = true ]]; then
-  docker build --tag docker.io/scotcurry4/datadogcurryware:3.718.1230 --file ./Containers/Dockerfile . \
+  docker build --tag docker.io/scotcurry4/datadogcurryware:3.719.761 --file ./Containers/Dockerfile . \
     --label org.opencontainers.image.revision="$(git rev-parse HEAD)" \
     --label org.opencontainers.image.source=github.com/scotcurry/Datadog
-  docker build --tag scotcurry4/datadogcurryware:3.718.1230 --file ./Containers/Dockerfile . \
+  docker build --tag scotcurry4/datadogcurryware:3.719.761 --file ./Containers/Dockerfile . \
     --label org.opencontainers.image.revision="$(git rev-parse HEAD)" \
     --label org.opencontainers.image.source=github.com/scotcurry/Datadog
   docker build --tag scotcurry4/datadogcurryware:latest --file ./Containers/Dockerfile . \

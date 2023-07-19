@@ -48,4 +48,4 @@ jobs:
           file: ./Containers/Dockerfile
           platforms: linux/arm64/v8,linux/amd64
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/datadogcurryware:3.718.1230,${{ secrets.DOCKER_USERNAME }}/datadogcurryware:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/datadogcurryware:3.719.761,${{ secrets.DOCKER_USERNAME }}/datadogcurryware:latest
