@@ -21,8 +21,8 @@ services:
           "service": "chuckjoke-frontend",
           "log_processing_rules": [{
             "type": "multi_line",
-            "name", "log_start_with_date_time",
-            "pattern": "\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2},\d{3}"
+            "name": "log_start_with_date_time",
+            "pattern": "\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2},\\d{3}"
           }]
         }]
     environment:

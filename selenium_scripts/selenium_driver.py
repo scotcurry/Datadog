@@ -11,7 +11,8 @@ def run_selenium_script(name):
 
     options = ChromeOptions()
     options.add_argument('--headless')
-    service = ChromeService(port=8088)
+    chrome_driver_path = '/usr/local/bin/chromedriver'
+    service = ChromeService(port=8088, executable_path=chrome_driver_path)
     driver = webdriver.Chrome(service=service, options=options)
 
     for counter in range(0, 26):
@@ -45,8 +46,14 @@ def run_selenium_script(name):
         delay = round(random.random(), 2) * 10
         time.sleep(delay)
 
+        wait_time = round(random.random(), 2)
+        driver.implicitly_wait(wait_time)
+        driver.get('http://ubuntu-desktop.curryware.org:8088/azure_container_app')
+        print(driver.title)
+
     driver.close()
 
 
 if __name__ == '__main__':
     run_selenium_script('Run Selenium')
+
