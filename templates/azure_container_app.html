@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}{{ super() }}Azure Container App{% endblock %}
+{% block content %}
+<article>
+  <div class="article-settings">
+    <h1 class="cover-heading">RSS Feeds</h1>
+    <img src="{{ azure_icon_image }}" alt="Azure Icon">
+    <table style="width:100%">
+      <tbody>
+      <tr>
+        <th>Update Time</th>
+        <th>Title</th>
+        <th>Author</th>
+      </tr>
+      {% for current_feed in rss_feeds %}
+      <tr>
+        <td>{{ current_feed['updatedTime'] }}</td>
+        <td><a href="{{ current_feed['link'] }}">{{ current_feed['title'] }}</a></td>
+        <td>{{ current_feed['author'] }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</article>
+
+<aside>
+  <p>Put notes in here</p>
+</aside>
+{% endblock %}

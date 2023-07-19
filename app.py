@@ -10,7 +10,7 @@ from classes.multi_line_logging import write_multi_line_log_entry
 from classes.json_logging import write_json_log_entry
 
 # from ddtrace import patch; patch(logging=True)
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, url_for
 from ddtrace import tracer
 
 app = Flask(__name__)
@@ -168,3 +168,18 @@ def forced_error():
     return_value = 100 / divisor
 
     return render_template('random_error.html', return_value=return_value)
+
+
+@app.route('/azure_container_app', methods=['GET'])
+def azure_container_app():
+    site_url = 'https://curryware-rssfeedpuller.jollyforest-507ca08d.northcentralus.azurecontainerapps.io/rssfeedpuller'
+    try:
+        response = \
+            requests.get(site_url)
+        json_body = json.loads(response.content)
+        azure_icon_image = '/static/images/azure_icon.png'
+        rss_feeds = json_body['feedList']
+    except requests.exceptions.ConnectionError:
+        return render_template(site_url)
+
+    return render_template('azure_container_app.html', rss_feeds=rss_feeds, azure_icon_image=azure_icon_image)
