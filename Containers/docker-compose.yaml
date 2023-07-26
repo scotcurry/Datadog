@@ -7,11 +7,11 @@ services:
       - "8088:8088"
     #  There is a way to ingest labels and make the tags.  Need to look into this.
     labels:
-      com.datadoghq.tags.build: '3.726.546'
+      com.datadoghq.tags.build: '3.726.760'
       # Unified Tagging items
       com.datadoghq.tags.env: 'prod'
       com.datadoghq.tags.service: 'chuckjoke-frontend'
-      com.datadoghq.tags.version: '3.726.546'
+      com.datadoghq.tags.version: '3.726.760'
       com.datadoghq.tags.labeltag: 'added-label-tag'
       org.opencontainers.image.revision: '818aafb6ea33ecbf264359d2984c59e7925778f4'
       org.opencontainers.image.source: 'github.com/scotcurry/Datadog'
@@ -29,12 +29,14 @@ services:
         }]
     environment:
       - DD_ENV=prod
-      - DD_VERSION=3.726.546
+      - DD_VERSION=3.726.760
       - DD_SERVICE=chuckjoke-frontend
       - DD_LOGS_INJECTION=true
       - DD_TRACE_SAMPLE_RATE=1
       - DD_AGENT_HOST=datadog-agent
       - RUN_LOCAL=false
+      - DD_GIT_COMMIT_SHA=818aafb6ea33ecbf264359d2984c59e7925778f4
+      - DD_GIT_REPOSITORY_URL=github.com/scotcurry/Datadog
   agent:
     image: "datadog/agent:latest"
     container_name: datadog-agent
