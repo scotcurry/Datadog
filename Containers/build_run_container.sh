@@ -38,7 +38,6 @@ if [[ $# -eq 0 || ( ( $UPLOAD = false ) && ( $LATEST = false ) && ( $CLEAR = fal
 fi
 
 echo $LATEST
-read -p "Stop here" -t 20
 if [[ $LATEST = true ]]; then
   echo "Pulling latest Datadog Agent"
   docker rm --force datadog_agent
@@ -58,10 +57,10 @@ fi
 
 echo $BUILD
 if [[ $BUILD = true ]]; then
-  docker build --tag docker.io/scotcurry4/datadogcurryware:3.719.761 --file ./Containers/Dockerfile . \
+  docker build --tag docker.io/scotcurry4/datadogcurryware:3.719.786 --file ./Containers/Dockerfile . \
     --label org.opencontainers.image.revision="$(git rev-parse HEAD)" \
     --label org.opencontainers.image.source=github.com/scotcurry/Datadog
-  docker build --tag scotcurry4/datadogcurryware:3.719.761 --file ./Containers/Dockerfile . \
+  docker build --tag scotcurry4/datadogcurryware:3.719.786 --file ./Containers/Dockerfile . \
     --label org.opencontainers.image.revision="$(git rev-parse HEAD)" \
     --label org.opencontainers.image.source=github.com/scotcurry/Datadog
   docker build --tag scotcurry4/datadogcurryware:latest --file ./Containers/Dockerfile . \

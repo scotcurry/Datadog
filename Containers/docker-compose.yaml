@@ -7,11 +7,11 @@ services:
       - "8088:8088"
     #  There is a way to ingest labels and make the tags.  Need to look into this.
     labels:
-      com.datadoghq.tags.build: '3.719.761'
+      com.datadoghq.tags.build: '3.719.786'
       # Unified Tagging items
       com.datadoghq.tags.env: 'prod'
       com.datadoghq.tags.service: 'chuckjoke-frontend'
-      com.datadoghq.tags.version: '3.719.761'
+      com.datadoghq.tags.version: '3.719.786'
       com.datadoghq.tags.labeltag: 'added-label-tag'
       # This line is what will add the source tag.  That tag is used to make sure the right log pipeline is used.
       # Need to research this to figure out which takes precedent (env or labels).
@@ -27,7 +27,7 @@ services:
         }]
     environment:
       - DD_ENV=prod
-      - DD_VERSION=3.719.761
+      - DD_VERSION=3.719.786
       - DD_SERVICE=chuckjoke-frontend
       - DD_LOGS_INJECTION=true
       - DD_TRACE_SAMPLE_RATE=1
@@ -44,6 +44,8 @@ services:
       - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
       - DD_DOCKER_LABELS_AS_TAGS={"my.custom.label.team":"team"}
       - DD_HOSTNAME=docker-agent
+      - DD_REMOTE_CONFIGURATION_ENABLED=true
+      - DD_INVENTORIES_CONFIGURATION_ENABLED=true
     ports:
       - 127.0.0.1:8126:8126/tcp
     volumes:
