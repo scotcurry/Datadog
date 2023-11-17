@@ -50,7 +50,7 @@ def update_build_run_container(current_version):
 def update_docker_compose_file(current_version):
 
     current_directory = os.getcwd()
-    docker_compose_file = current_directory + '/Containers/docker-compose.yaml'
+    docker_compose_file = current_directory + '/Containers/docker-compose-template.yaml'
     with open(docker_compose_file, 'r') as file:
         file_content = file.read()
 

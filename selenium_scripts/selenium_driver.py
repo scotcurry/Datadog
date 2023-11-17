@@ -56,4 +56,3 @@ def run_selenium_script(name):
 
 if __name__ == '__main__':
     run_selenium_script('Run Selenium')
-
