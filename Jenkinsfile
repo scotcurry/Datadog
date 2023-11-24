@@ -4,12 +4,14 @@ pipeline {
     environment {
         DATADOG_API_KEY = credentials('DD_API_KEY')
         DATADOG_APP_KEY = credentials('DD_APP_KEY')
+        DD_API_KEY = credentials("DD_API_KEY")
+        DD_APPLICATION_KEY = credentials("DD_APP_KEY")
     }
     stages {
         stage ('Github Checkout') {
             steps {
                 script {
-                    git branch: 'main'
+                    git branch: 'master',
                     url: 'https://github.com/scotcurry/Datadog.git'
                 }
             }
@@ -31,6 +33,12 @@ pipeline {
                     echo "Git SHA: ${git_sha}"
                 }
             }
+        }
+        stage ('Install Requirements.txt') {
+          steps {
+            sh "/usr/bin/python3 -m venv ./venv"
+            sh "./venv/bin/pip3 install -r requirements.txt"
+          }
         }
         stage ('Run Unit Tests') {
             steps {
