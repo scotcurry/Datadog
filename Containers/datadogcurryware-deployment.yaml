@@ -9,7 +9,7 @@ metadata:
     tags.datadoghq.com/version: "3.703.822"
     admission.datadoghq.com/enabled: "true"
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: "datadogcurryware"

@@ -97,3 +97,4 @@ instance/
 */.env
 /currywareff-d971a11d21cd.json
 /Containers/upload_secrets.sh
+/Containers/private_location.json

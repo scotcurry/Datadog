@@ -6,14 +6,16 @@ pipeline {
         DATADOG_APP_KEY = credentials('DD_APP_KEY')
         DD_API_KEY = credentials("DD_API_KEY")
         DD_APPLICATION_KEY = credentials("DD_APP_KEY")
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub')
+        GITHUB_URL = "github.com/scotcurry/Datadog"
     }
     stages {
         stage ('Github Checkout') {
             steps {
-                script {
-                    git branch: 'master',
-                    url: 'https://github.com/scotcurry/Datadog.git'
-                }
+                checkout scmGit(
+                  branches: [[name: "master"]],
+                  userRemoteConfigs: [[url: 'https://github.com/scotcurry/Datadog.git']]
+                )
             }
         }
         stage ('Get Current Version') {
@@ -22,7 +24,7 @@ pipeline {
                     def current_version_local = sh(returnStdout: true, script: '/usr/local/microsoft/powershell/7/pwsh ./BuildCurrentVersion.ps1')
                     current_version_local = current_version_local.trim()
                     env.current_version = current_version_local
-                    echo "Current Version: ${current_version}" 
+                    echo "Current Version: ${current_version}"
                 }
             }
         }
@@ -48,22 +50,33 @@ pipeline {
         stage ('Update Docker-Compose YAML') {
             steps {
                 sh "mkdir ./tmp"
-                sh "sed 's/scotcurry4/datadogcurryware:latest/scotcurry4/datadogcurryware:${current_version}/g' ./Containers/docker-compose-template.yaml > ./tmp/docker-compose-file-version.yaml"
-                sh "sed 's/<DATADOG_VERSION>/${current_version}/g' ./tmp/docker-compose-file-version.yaml > ./tmp/docker-compose-version.yaml"
-                sh "sed 's/<GIT_SHA>/${git_sha}/g' ./tmp/docker-compose-version.yaml > ./tmp/docker-compose-gitsha.yaml"
+                sh "sed 's/datadogcurryware:latest/datadogcurryware:${current_version}/g' ./Containers/docker-compose-template.yaml > ./tmp/docker-compose-image-version.yaml"
+                sh "sed 's/<DATADOG_VERSION>/${current_version}/g' ./tmp/docker-compose-image-version.yaml > ./tmp/docker-file-version.yaml"
+                sh "sed 's/<GIT_SHA>/${git_sha}/g' ./tmp/docker-file-version.yaml > ./tmp/docker-compose-gitsha.yaml"
                 sh "sed 's/<DD_API_KEY>/${DATADOG_API_KEY}/g' ./tmp/docker-compose-gitsha.yaml > ./tmp/docker-compose.yaml"
                 sh "cp ./tmp/docker-compose.yaml /Users/scot.curry/Desktop/docker-compose.yaml"
             }
         }
         stage ('Build Docker Container') {
             steps {
-                sh "/usr/local/bin/docker build --tag docker.io/scotcurry4/datadogcurryware${current_version} --file ./Containers/Dockerfile ."
+                sh '/usr/local/bin/docker build --tag docker.io/scotcurry4/datadogcurryware:${current_version} --build-arg DD_GIT_REPOSITORY_URL="${GITHUB_URL}" --build-arg DD_GIT_COMMIT_SHA="$(git rev-parse HEAD)" --file ./Containers/Dockerfile .'
             }
+        }
+        stage ('Docker Hub Login') {
+          steps {
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | /usr/local/bin/docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+          }
         }
         stage ('Push Docker Container') {
             steps {
-                sh "/usr/local/bin/docker push scotcurry4/datadogcurryware${current_version}"
+                sh "/usr/local/bin/docker push scotcurry4/datadogcurryware:${current_version}"
             }
+        }
+    }
+    post {
+        always {
+          sh "rm -rf ./tmp"
+          sh "rm -rf ./venv"
         }
     }
 }
