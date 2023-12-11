@@ -72,6 +72,13 @@ pipeline {
                 sh "/usr/local/bin/docker push scotcurry4/datadogcurryware:${current_version}"
             }
         }
+        stage ('Build / Update Datadog Service Catalog') {
+            steps {
+                sh '/opt/homebrew/bin/terraform init'
+                sh '/opt/homebrew/bin/terraform plan -var datadog_app_key=${DATADOG_APP_KEY} -var datadog_api_key=${DATADOG_API_KEY}'
+                sh '/opt/homebrew/bin/terraform apply -var datadog_app_key=${DATADOG_APP_KEY} -var datadog_api_key=${DATADOG_API_KEY} -auto-approve'
+            }
+        }
     }
     post {
         always {

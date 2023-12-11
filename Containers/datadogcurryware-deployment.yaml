@@ -6,7 +6,7 @@ metadata:
     app: "datadogcurryware"
     tags.datadoghq.com/env: "prod"
     tags.datadoghq.com/service: "chuckjoke-frontend"
-    tags.datadoghq.com/version: "3.703.822"
+    tags.datadoghq.com/version: "3.1211.717"
     admission.datadoghq.com/enabled: "true"
 spec:
   replicas: 1
@@ -15,14 +15,14 @@ spec:
       app: "datadogcurryware"
       tags.datadoghq.com/env: "prod"
       tags.datadoghq.com/service: "chuckjoke-frontend"
-      tags.datadoghq.com/version: "3.703.822"
+      tags.datadoghq.com/version: "3.1211.717"
   template:
     metadata:
       labels:
         app: "datadogcurryware"
         tags.datadoghq.com/env: "prod"
         tags.datadoghq.com/service: "chuckjoke-frontend"
-        tags.datadoghq.com/version: "3.703.822"
+        tags.datadoghq.com/version: "3.1211.717"
         admission.datadoghq.com/enabled: "true"
       annotations:
         admission.datadoghq.com/python-lib.version: "v2.2.0"
